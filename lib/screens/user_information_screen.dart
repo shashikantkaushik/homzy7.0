@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:homzy1/user_model.dart';
 import 'package:homzy1/auth.dart';
-import 'package:homzy1/screens/home_screen.dart';
+import 'package:homzy1/screens/homeScreen.dart';
 import 'package:homzy1/utils.dart';
 import 'package:homzy1/widget/button.dart';
 import 'package:provider/provider.dart';
@@ -43,95 +43,95 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
       body: SafeArea(
         child: isLoading == true
             ? const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.purple,
-                ),
-              )
+          child: CircularProgressIndicator(
+            color: Colors.purple,
+          ),
+        )
             : SingleChildScrollView(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 25.0, horizontal: 5.0),
-                child: Center(
+          padding:
+          const EdgeInsets.symmetric(vertical: 25.0, horizontal: 5.0),
+          child: Center(
+            child: Column(
+              children: [
+                InkWell(
+                  onTap: () => selectImage(),
+                  child: image == null
+                      ? const CircleAvatar(
+                    backgroundColor:Color(0xFFC5C6d0),
+                    radius: 80,
+                    backgroundImage: AssetImage('assets/1.1.jpeg'),
+                  )
+                      : CircleAvatar(
+                    backgroundImage: FileImage(image!),
+                    radius: 80,
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 5, horizontal: 15),
+                  margin: const EdgeInsets.only(top: 20),
                   child: Column(
                     children: [
-                      InkWell(
-                        onTap: () => selectImage(),
-                        child: image == null
-                            ? const CircleAvatar(
-                                backgroundColor:Color(0xFFC5C6d0),
-                                radius: 80,
-                                backgroundImage: AssetImage('assets/1.1.jpeg'),
-                              )
-                            : CircleAvatar(
-                                backgroundImage: FileImage(image!),
-                                radius: 80,
-                              ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 15),
-                        margin: const EdgeInsets.only(top: 20),
-                        child: Column(
-                          children: [
-                            // name field
-                            SizedBox(
-                              height: 20,
-                            ),
-                            TextField(
-
-                              decoration: InputDecoration(
-                                hintText: "Enter Your Name",
-                                icon: Icon(Icons.account_box_rounded, color: Color(0xFFC5C6d0),
-                                size: 30),
-                              ),
-                              keyboardType: TextInputType.emailAddress,
-                              maxLines: 1,
-                              controller: nameController,
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            // email
-                            TextField(
-                              decoration: InputDecoration(
-                                hintText: "abc@example.com",
-                                icon: Icon(Icons.alternate_email, color: Color(0xFFC5C6d0),
-                                    size: 30),
-                              ),
-                              keyboardType: TextInputType.emailAddress,
-                              maxLines: 1,
-                              controller: emailController,
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            // bio
-                            TextField(
-                              decoration: InputDecoration(
-                                hintText: "Enter Your Bio Here",
-                                icon: Icon(Icons.edit, color: Color(0xFFC5C6d0),
-                                    size: 30),
-                              ),
-                              keyboardType: TextInputType.emailAddress,
-                              maxLines: 2,
-                              controller: bioController,
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 30),
+                      // name field
                       SizedBox(
-                        height: 50,
-                        width: MediaQuery.of(context).size.width * 0.90,
-                        child: CustomButton(
-                          text: "Continue",
-                          onPressed: () => storeData(),
+                        height: 20,
+                      ),
+                      TextField(
+
+                        decoration: InputDecoration(
+                          hintText: "Enter Your Name",
+                          icon: Icon(Icons.account_box_rounded, color: Color(0xFFC5C6d0),
+                              size: 30),
                         ),
-                      )
+                        keyboardType: TextInputType.emailAddress,
+                        maxLines: 1,
+                        controller: nameController,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      // email
+                      TextField(
+                        decoration: InputDecoration(
+                          hintText: "abc@example.com",
+                          icon: Icon(Icons.alternate_email, color: Color(0xFFC5C6d0),
+                              size: 30),
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                        maxLines: 1,
+                        controller: emailController,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      // bio
+                      TextField(
+                        decoration: InputDecoration(
+                          hintText: "Enter Your Bio Here",
+                          icon: Icon(Icons.edit, color: Color(0xFFC5C6d0),
+                              size: 30),
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                        maxLines: 2,
+                        controller: bioController,
+                      ),
                     ],
                   ),
                 ),
-              ),
+                const SizedBox(height: 30),
+                SizedBox(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width * 0.90,
+                  child: CustomButton(
+                    text: "Continue",
+                    onPressed: () => storeData(),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -195,6 +195,7 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
       createdAt: "",
       phoneNumber: "",
       uid: "",
+
     );
     if (image != null) {
       ap.saveUserDataToFirebase(
@@ -204,14 +205,14 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
         onSuccess: () {
           ap.saveUserDataToSP().then(
                 (value) => ap.setSignIn().then(
-                      (value) => Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const HomeScreen(),
-                          ),
-                          (route) => false),
-                    ),
-              );
+                  (value) => Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>   HomeScreen(),
+                  ),
+                      (route) => false),
+            ),
+          );
         },
       );
     } else {

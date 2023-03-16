@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:homzy1/auth.dart';
-import 'package:homzy1/screens/home_screen.dart';
+import 'package:homzy1/screens/homeScreen.dart';
+import 'package:homzy1/screens/reqList.dart';
 import 'package:homzy1/screens/user_information_screen.dart';
 import 'package:homzy1/utils.dart';
 import 'package:homzy1/widget/button.dart';
@@ -164,7 +165,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                 (value) => Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const HomeScreen(),
+                                      builder: (context) =>  HomeScreen(),
                                     ),
                                     (route) => false),
                               ),
