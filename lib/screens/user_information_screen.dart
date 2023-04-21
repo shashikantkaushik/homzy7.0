@@ -20,6 +20,7 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final bioController = TextEditingController();
+  final upiController=TextEditingController();
 
   @override
   void dispose() {
@@ -27,6 +28,7 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
     nameController.dispose();
     emailController.dispose();
     bioController.dispose();
+    upiController.dispose();
   }
 
   // for selecting image
@@ -74,12 +76,12 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
                   child: Column(
                     children: [
                       // name field
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextField(
 
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: "Enter Your Name",
                           icon: Icon(Icons.account_box_rounded, color: Color(0xFFC5C6d0),
                               size: 30),
@@ -88,12 +90,12 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
                         maxLines: 1,
                         controller: nameController,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       // email
                       TextField(
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: "abc@example.com",
                           icon: Icon(Icons.alternate_email, color: Color(0xFFC5C6d0),
                               size: 30),
@@ -102,20 +104,30 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
                         maxLines: 1,
                         controller: emailController,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       // bio
                       TextField(
-                        decoration: InputDecoration(
-                          hintText: "Enter Your Bio Here",
+                        decoration: const InputDecoration(
+                          hintText: "Enter Your Email Here",
                           icon: Icon(Icons.edit, color: Color(0xFFC5C6d0),
                               size: 30),
                         ),
                         keyboardType: TextInputType.emailAddress,
-                        maxLines: 2,
-                        controller: bioController,
+                        maxLines: 1,
+                        controller: emailController,
                       ),
+                      TextField(
+                        decoration: const InputDecoration(
+                          hintText: "Enter Your UPI Here",
+                          icon: Icon(Icons.edit, color: Color(0xFFC5C6d0),
+                              size: 30),
+                        ),
+                        keyboardType: TextInputType.text,
+                        maxLines: 1,
+                        controller: upiController,
+                      )
                     ],
                   ),
                 ),
@@ -146,7 +158,7 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: TextFormField(
-        cursorColor: Color(0xFF189AB4),
+        cursorColor: const Color(0xFF189AB4),
         controller: controller,
         keyboardType: inputType,
         maxLines: maxLines,
@@ -155,7 +167,7 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
             margin: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              color: Color(0xFFF1F5F5FF),
+              color: const Color(0xfff1f5f5ff),
             ),
             child: Icon(
               icon,
@@ -190,7 +202,7 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
     UserModel userModel = UserModel(
       name: nameController.text.trim(),
       email: emailController.text.trim(),
-      bio: bioController.text.trim(),
+      upi: upiController.text.trim(),
       profilePic: "",
       createdAt: "",
       phoneNumber: "",
@@ -208,7 +220,7 @@ class _UserInfromationScreenState extends State<UserInfromationScreen> {
                   (value) => Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>   HomeScreen(),
+                    builder: (context) =>   const HomeScreen(),
                   ),
                       (route) => false),
             ),

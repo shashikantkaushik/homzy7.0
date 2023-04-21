@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:homzy1/screens/homeScreen.dart';
 import 'package:homzy1/screens/respose.dart';
-import 'package:flutter/material.dart';
 import 'package:homzy1/auth.dart';
 import 'package:homzy1/req_model.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ServiceRequest extends StatefulWidget {
+  const ServiceRequest({super.key});
+
   @override
   _ServiceRequestState createState() => _ServiceRequestState();
 }
@@ -31,20 +32,20 @@ class _ServiceRequestState extends State<ServiceRequest> {
           onPressed: (){
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => HomeScreen()),
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
             );
           },
-          icon: Icon(Icons.arrow_back_ios_sharp),
+          icon: const Icon(Icons.arrow_back_ios_sharp),
         ),
 
-        title: Text('Service Requests'),
+        title: const Text('Service Requests'),
 
       ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: _firebaseFirestore.collection("request").snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (snapshot.hasError) {
@@ -55,10 +56,8 @@ class _ServiceRequestState extends State<ServiceRequest> {
           for (final docSnapshot in snapshot.data!.docs) {
             print("s34dghfd");
             final data = docSnapshot.data();
-            if (data != null) {
-              final reqModel = ReqModel.fromMap(data as Map<String, dynamic>);
-              reqList.add(reqModel);
-            }
+            final reqModel = ReqModel.fromMap(data);
+            reqList.add(reqModel);
           }
 
           return ListView.builder(
@@ -74,7 +73,7 @@ class _ServiceRequestState extends State<ServiceRequest> {
                 child: ListTile(
                   title: Text(reqList[index].work),
                   subtitle: Text(reqList[index].desc),
-                  trailing: Icon(Icons.arrow_forward),
+                  trailing: const Icon(Icons.arrow_forward),
                 ),
               );
             },

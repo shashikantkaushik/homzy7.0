@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:homzy1/auth.dart';
-//import 'package:homzy1/screens/home_screen.dart';
+import 'package:homzy1/screens/book_Service.dart';
 import 'package:provider/provider.dart';
 import 'package:homzy1/screens/WelcomeScreen.dart';
 //import 'package:kommunicate_flutter/kommunicate_flutter.dart';
-class SubSetting extends StatelessWidget {
+class SubSetting extends StatefulWidget {
+  const SubSetting({super.key});
+
+  @override
+  State<SubSetting> createState() => _SubSettingState();
+}
+
+class _SubSettingState extends State<SubSetting> {
   @override
   Widget build(BuildContext context) {
     final ap = Provider.of<AuthProvider>(context, listen: false);
     const kchatbot="24b188427eb21cddb27882c3ee1ffae54";
     final name=(ap.userModel.name);
     final email=(ap.userModel.email);
-    final bio=(ap.userModel.bio);
+    final bio=(ap.userModel.upi);
     final phone=(ap.userModel.phoneNumber);
     final pic=(ap.userModel.profilePic);
     final uid=(ap.userModel.uid);
@@ -28,22 +35,22 @@ class SubSetting extends StatelessWidget {
                 CircleAvatar(
 
                   backgroundImage: NetworkImage(ap.userModel.profilePic),
-                  backgroundColor: Color(0xFF189AB4),
+                  backgroundColor: const Color(0xFF189AB4),
                   radius: 50,
                 )
             ),
           ),
-          SizedBox(height: 50),
+          const SizedBox(height: 50),
           // Container 1 with payment icon and arrow
           Container(
             height: 60.0,
             color: Colors.white,
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
-                  children: [
+                  children: const [
                     Icon(
                       Icons.edit,
                       color: Colors.black,
@@ -59,8 +66,8 @@ class SubSetting extends StatelessWidget {
                     ),
                   ],
                 ),
-                Spacer(),
-                Icon(
+                const Spacer(),
+                const Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.black,
                   size: 24.0,
@@ -68,16 +75,16 @@ class SubSetting extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           Container(
             height: 60.0,
             color: Colors.white,
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
-                  children: [
+                  children: const [
                     Icon(
                       Icons.payment,
                       color: Colors.black,
@@ -93,8 +100,8 @@ class SubSetting extends StatelessWidget {
                     ),
                   ],
                 ),
-                Spacer(),
-                Icon(
+                const Spacer(),
+                const Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.black,
                   size: 24.0,
@@ -102,33 +109,43 @@ class SubSetting extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           Container(
             height: 60.0,
             color: Colors.white,
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
-                  children: [
+                  children:  [
                     Icon(
                       Icons.question_answer,
                       color: Colors.black,
                       size: 32.0,
                     ),
                     SizedBox(width: 16.0),
-                    Text(
-                      "FAQ",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24.0,
+                    TextButton(
+                      onPressed: (){
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>  bookedService()),
+                        );
+
+                      },
+                      child: Text(
+                        "FAQ",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24.0,
+                        ),
                       ),
                     ),
                   ],
                 ),
-                Spacer(),
-                Icon(
+                const Spacer(),
+                const Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.black,
                   size: 24.0,
@@ -136,23 +153,23 @@ class SubSetting extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           // Container 2
           Container(
             height: 60.0,
             color: Colors.white,
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.help,
                       color: Colors.black,
                       size: 32.0,
                     ),
-                    SizedBox(width: 16.0),
+                    const SizedBox(width: 16.0),
                     TextButton(
                       onPressed: (){
                         // dynamic conversationObject = {
@@ -167,7 +184,7 @@ class SubSetting extends StatelessWidget {
                         //   print("Conversation builder error : " + error.toString());
                         // });
                       },
-                      child: Text(
+                      child: const Text(
                         "Help",
                         style: TextStyle(
                           color: Colors.black,
@@ -177,7 +194,7 @@ class SubSetting extends StatelessWidget {
                     ),
                   ],
                 ),
-                Icon(
+                const Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.black,
                   size: 24.0,
@@ -186,19 +203,19 @@ class SubSetting extends StatelessWidget {
             ),
           ),
 
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           // Container 3
           // Container 4
           // Container 4
           Container(
             height: 60.0,
             color: Colors.white,
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
-                  children: [
+                  children: const [
                     Icon(
                       Icons.email,
                       color: Colors.black,
@@ -214,8 +231,8 @@ class SubSetting extends StatelessWidget {
                     ),
                   ],
                 ),
-                Spacer(),
-                Icon(
+                const Spacer(),
+                const Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.black,
                   size: 24.0,
@@ -223,13 +240,13 @@ class SubSetting extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           // Container 3
           // Container 4
           Container(
             height: 60.0,
             color: Colors.white,
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -257,13 +274,13 @@ class SubSetting extends StatelessWidget {
                             ),
                           );
                         },
-                        child: Icon(
+                        child: const Icon(
                           Icons.logout,
                           color: Colors.black,
                           size: 32.0,
                         ),
                       ),
-                      SizedBox(width: 16.0),
+                      const SizedBox(width: 16.0),
                       GestureDetector(
                         onTap: (){
                           print("press");
@@ -276,7 +293,7 @@ class SubSetting extends StatelessWidget {
                             ),
                           );
                         },
-                        child: Text(
+                        child: const Text(
                           "Log Out",
                           style: TextStyle(
                             color: Colors.black,
@@ -288,7 +305,7 @@ class SubSetting extends StatelessWidget {
                     ],
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 GestureDetector(
                   onTap: (){ap.userSignOut().then(
                         (value) => Navigator.pushAndRemoveUntil(
@@ -301,7 +318,7 @@ class SubSetting extends StatelessWidget {
                   );
 
                   },
-                  child: Icon(
+                  child: const Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.black,
                     size: 24.0,
@@ -310,7 +327,7 @@ class SubSetting extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           // Container 5
         ],
       ),

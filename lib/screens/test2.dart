@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:homzy1/service_model.dart';
 class test2 extends StatelessWidget {
+  const test2({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.white,
       body: Center(
         child: Text(

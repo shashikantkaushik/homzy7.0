@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class bookSubPage extends StatelessWidget {
+  const bookSubPage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.white,
       body: Center(
         child: Text(

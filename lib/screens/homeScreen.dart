@@ -3,9 +3,11 @@ import 'package:homzy1/screens/request_screen.dart';
 import 'package:homzy1/screens/setting_page.dart';
 
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,16 +15,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Service Provider'),
+        title: const Text('Home Service Provider'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -31,10 +35,10 @@ class HomeScreen extends StatelessWidget {
         Container(
         color: Colors.grey[200],
           height: 100,
-          child: Align(
+          child: const Align(
             alignment: Alignment.topLeft,
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0),
               child: Text(
                 'Good Morning Partner',
                 style: TextStyle(
@@ -45,7 +49,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ),
-          SizedBox(
+          const SizedBox(
             height: 80,
           ),
 
@@ -117,21 +121,21 @@ class HomeScreen extends StatelessWidget {
           //       ),
           //     ],
           //   ),
-            SizedBox(
+            const SizedBox(
               height: 80,
             ),
             Row(
               children: [
                 Expanded(
                   child:Container(
-                    padding: EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: const [
                         CircleAvatar(
                           radius: 30.0,
-                          child: Icon(Icons.attach_money, size: 35.0, color: Colors.white),
                           backgroundColor: Colors.green,
+                          child: Icon(Icons.attach_money, size: 35.0, color: Colors.white),
                         ),
                         // SizedBox(height: 16.0),
                         // Text(
@@ -156,14 +160,14 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: const [
                         CircleAvatar(
                           radius: 30.0,
-                          child: Icon(Icons.attach_money, size: 35.0, color: Colors.white),
                           backgroundColor: Colors.blue,
+                          child: Icon(Icons.attach_money, size: 35.0, color: Colors.white),
                         ),
                         SizedBox(height: 16.0),
                         Text(
@@ -211,19 +215,19 @@ class HomeScreen extends StatelessWidget {
             case 0:
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => HomeScreen()),
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
               );
               break;
             case 1:
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ServiceRequest()),
+                MaterialPageRoute(builder: (context) => const ServiceRequest()),
               );
               break;
             case 2:
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SubSetting()),
+                MaterialPageRoute(builder: (context) => const SubSetting()),
               );
               break;
           }

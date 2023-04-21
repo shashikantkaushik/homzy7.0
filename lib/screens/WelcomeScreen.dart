@@ -4,15 +4,6 @@ import 'package:homzy1/screens/homeScreen.dart';
 import 'package:homzy1/screens/register.dart';
 import 'package:homzy1/widget/button.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/material.dart';
-import 'package:homzy1/auth.dart';
-import 'package:homzy1/screens/reqList.dart';
-import 'package:homzy1/screens/otp_screen.dart';
-import 'package:homzy1/screens/register.dart';
-import 'package:homzy1/screens/test2.dart';
-import 'package:homzy1/widget/button.dart';
-import 'package:provider/provider.dart';
-import 'package:homzy1/screens/shashi.dart';
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
 
@@ -67,7 +58,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               () => Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => HomeScreen(),
+                              builder: (context) => const HomeScreen(),
                             ),
                           ),
                         );
@@ -75,7 +66,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>  RegisterScreen(),
+                            builder: (context) =>  const RegisterScreen(),
                           ),
                         );
                       }

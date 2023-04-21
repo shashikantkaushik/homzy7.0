@@ -1,7 +1,7 @@
 class ReqModel {
   String userName;
   String address;
-  String? reqPic;
+  String reqPic;
   String createdAt;
   String userPhoneNumber;
   String userUid;

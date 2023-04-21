@@ -1,5 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:homzy1/booked_model.dart';
+import 'package:homzy1/provider_model.dart';
+import 'package:homzy1/req_model.dart';
+import 'package:homzy1/utils.dart';
+import 'package:flutter/material.dart';
+import 'package:homzy1/user_model.dart';
+import 'package:homzy1/screens/otp_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'dart:convert';
+import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -14,6 +28,11 @@ import 'package:homzy1/screens/otp_screen.dart';
 import 'package:homzy1/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
+
+
+
+
 class AuthProvider extends ChangeNotifier {
   bool _isSignedIn = false;
 
@@ -23,8 +42,12 @@ class AuthProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String? _uid;
 
+  BookModel? _bookModel;
+  BookModel get bookModel => _bookModel!;
+
   String get uid => _uid!;
   UserModel? _userModel;
+  ProviderModel? _providerModel;
 
   UserModel get userModel => _userModel!;
   ReqModel? _reqModel;
@@ -72,12 +95,12 @@ class AuthProvider extends ChangeNotifier {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>
-                    OtpScreen(verificationId: verificationId,),
+                builder: (context) => OtpScreen(verificationId: verificationId,),
               ),
             );
           },
           codeAutoRetrievalTimeout: (verificationId) {});
+
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message.toString());
     }
@@ -183,7 +206,7 @@ class AuthProvider extends ChangeNotifier {
         name: snapshot['name'],
         email: snapshot['email'],
         createdAt: snapshot['createdAt'],
-        bio: snapshot['bio'],
+        upi: snapshot['upi'],
         uid: snapshot['uid'],
         profilePic: snapshot['profilePic'],
         phoneNumber: snapshot['phoneNumber'],
@@ -273,6 +296,32 @@ class AuthProvider extends ChangeNotifier {
   //   return reqList;
   // }
 
+  void saveProDataToFirebase({
+    required BuildContext context,
+    required ProviderModel providerModel,
+    required Function onSuccess,
+  }) async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      reqModel.userPhoneNumber = _firebaseAuth.currentUser!.phoneNumber!;
+      reqModel.userUid = _firebaseAuth.currentUser!.phoneNumber!;
+      // uploading to database
+      await _firebaseFirestore
+          .collection("provider")
+          .doc(_uid)
+          .set(reqModel.toMap())
+          .then((value) {
+        onSuccess();
+        _isLoading = false;
+        notifyListeners();
+      });
+    } on FirebaseAuthException catch (e) {
+      showSnackBar(context, e.message.toString());
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
 
   void saveReqDataToFirebase({
     required BuildContext context,
@@ -316,28 +365,75 @@ class AuthProvider extends ChangeNotifier {
     final querySnapshot = await _firebaseFirestore.collection("request").get();
 
     List<ReqModel> reqList = [];
-    querySnapshot.docs.forEach((doc) {
+    for (var doc in querySnapshot.docs) {
       ReqModel reqModel = ReqModel(
-        pin:doc.data()['description'],
-        address: doc.data()['address'],
-        userName: doc.data()['name'],
-        work: doc.data()['work'],
-        createdAt: doc.data()['createdAt'],
-        desc: doc.data()['bio'],
-        userUid: doc.data()['uid'],
-        reqPic: doc.data()['profilePic'],
-        userPhoneNumber: doc.data()['phoneNumber'],
-        userPic: doc.data()['userPic']
+          pin: doc.data()['description'],
+          address: doc.data()['address'],
+          userName: doc.data()['name'],
+          work: doc.data()['work'],
+          createdAt: doc.data()['createdAt'],
+          desc: doc.data()['bio'],
+          userUid: doc.data()['uid'],
+          reqPic: doc.data()['profilePic'],
+          userPhoneNumber: doc.data()['phoneNumber'],
+          userPic: doc.data()['userPic']
       );
       reqList.add(reqModel);
-    });
+    }
 
     return reqList;
   }
 
+
+  void saveBookReq({
+    required BuildContext context,
+    required BookModel bookModel,
+    required Function onSuccess,
+  }) async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      print("hlo11");
+     // bookModel.acceptedAt = DateTime.now().millisecondsSinceEpoch.toString();
+      // bookModel.proPhoneNumber = _firebaseAuth.currentUser!.phoneNumber!;
+      // bookModel.proUid = _firebaseAuth.currentUser!.phoneNumber!;
+      // bookModel.upi=userModel.upi;
+      // bookModel.proPic=userModel.profilePic;
+      // bookModel.userUid=reqModel.userUid;
+      // bookModel.userName=reqModel.userName;
+      // bookModel.userPhoneNumber=reqModel.userPhoneNumber;
+    //  bookModel.createdAt=reqModel.createdAt;
+      // bookModel.reqPic=reqModel.reqPic!;
+      // bookModel.desc=reqModel.desc;
+      _bookModel = bookModel;
+      print("hlo131");
+
+      // uploading to database
+      await _firebaseFirestore
+          .collection("book")
+          .doc(_uid)
+          .set(bookModel.toMap())
+          .then((value) {
+        onSuccess(){
+          print("hlo132331");
+        }
+        _isLoading = false;
+        notifyListeners();
+      });
+    } on FirebaseAuthException catch (e) {
+      print("5677675");
+      showSnackBar(context, e.message.toString());
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+
+
   void move(String phoneNumber) async {
     final sourceCollection = FirebaseFirestore.instance.collection('request');
-    final destinationCollection = FirebaseFirestore.instance.collection('moved');
+    final destinationCollection = FirebaseFirestore.instance.collection(
+        'moved');
 
     final sourceDocSnapshot = await sourceCollection.doc(phoneNumber).get();
 
@@ -351,19 +447,13 @@ class AuthProvider extends ChangeNotifier {
       await sourceCollection.doc(phoneNumber).delete();
       print('Document with phone number $phoneNumber moved successfully!');
     } else {
-      print('Document with phone number $phoneNumber does not exist in the request collection!');
+      print(
+          'Document with phone number $phoneNumber does not exist in the request collection!');
     }
   }
 
 
-
-
-
-
 // Delete the document from the source collectio
-
-
-}
 
 
 /*
@@ -459,3 +549,4 @@ Future<List<ReqModel>> getReqListFromFirestore() async {
   return reqList;
 }
  */
+}

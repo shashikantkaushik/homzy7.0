@@ -4,7 +4,6 @@ import 'package:homzy1/screens/WelcomeScreen.dart';
 import 'package:homzy1/screens/request_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:homzy1/widget/button.dart';
-import 'package:homzy1/const.dart';
 //import 'package:kommunicate_flutter/kommunicate_flutter.dart';
 /*
 class Profile extends StatefulWidget {
@@ -144,7 +143,7 @@ class _ProfileState extends State<Profile> {
     final ap = Provider.of<AuthProvider>(context, listen: false);
     final name=(ap.userModel.name);
     final email=(ap.userModel.email);
-    final bio=(ap.userModel.bio);
+    final bio=(ap.userModel.upi);
     final phone=(ap.userModel.phoneNumber);
     final pic=(ap.userModel.profilePic);
     final uid=(ap.userModel.uid);
@@ -169,7 +168,7 @@ backgroundColor: Colors.transparent,
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) =>  ServiceRequest(),
+            builder: (context) =>  const ServiceRequest(),
           ),
         );
       },
@@ -180,7 +179,7 @@ backgroundColor: Colors.transparent,
         shadowColor:MaterialStateProperty.all<Color>(Colors.transparent),
 
       ),
-      child:Icon(Icons.arrow_back_ios),
+      child:const Icon(Icons.arrow_back_ios),
 
     )
 
@@ -193,21 +192,21 @@ backgroundColor: Colors.transparent,
                     children :<Widget>[
 
                       Container(
-                        padding: EdgeInsets.symmetric(vertical: 30),
+                        padding: const EdgeInsets.symmetric(vertical: 30),
                         child: CircleAvatar(
                           radius:80,
-                          backgroundImage:NetworkImage('$pic'),
+                          backgroundImage:NetworkImage(pic),
                         ),
                       ),
-                      Text('$name',
-                          style:TextStyle(
+                      Text(name,
+                          style:const TextStyle(
                             fontWeight:FontWeight.bold,
                             fontSize: 40.0,
                             fontFamily:'Pacifico',
                           )
                       ),
 
-                      SizedBox(height:20,
+                      const SizedBox(height:20,
                         width:150,
                         child: Divider(
                           color:Colors.grey,
@@ -220,18 +219,18 @@ backgroundColor: Colors.transparent,
                       Card(
                         shadowColor: Colors.white, shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(100),
-                            side: BorderSide(width: 0,style: BorderStyle.solid)
+                            side: const BorderSide(width: 0,style: BorderStyle.solid)
                           ),
-                          margin:EdgeInsets.symmetric(vertical:10,
+                          margin:const EdgeInsets.symmetric(vertical:10,
                               horizontal:25),
                           color:Colors.white,
                           child:
                           ListTile(
                             leading:
-                            Icon(Icons.phone,
+                            const Icon(Icons.phone,
                                 color:Color(0xFFC5C6d0)),
-                            title: Text('$phone',
-                                style:TextStyle(
+                            title: Text(phone,
+                                style:const TextStyle(
 
                                   fontFamily:'SourceSansPro-Regular',
                                   fontSize: 13,
@@ -242,15 +241,15 @@ backgroundColor: Colors.transparent,
 
                       Card(shadowColor: Colors.white, shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100),
-                          side: BorderSide(width: 0,style: BorderStyle.solid)
+                          side: const BorderSide(width: 0,style: BorderStyle.solid)
                       ),
-                          margin:EdgeInsets.symmetric(vertical:10,
+                          margin:const EdgeInsets.symmetric(vertical:10,
                           horizontal:25),
                           child: ListTile(
-                              leading: Icon(Icons.email,
+                              leading: const Icon(Icons.email,
                                   color:Color(0xFFC5C6d0)),
-                              title:Text('$email',
-                                  style:TextStyle(
+                              title:Text(email,
+                                  style:const TextStyle(
 
                                     fontFamily:'SourceSansPro-Regular',
                                     fontSize: 13,
@@ -290,7 +289,7 @@ backgroundColor: Colors.transparent,
                       //         )
                       //     )
                       // ),
-                     SizedBox(
+                     const SizedBox(
                        height: 50,
                      ),
                      SizedBox(
@@ -310,7 +309,7 @@ backgroundColor: Colors.transparent,
                          },
                        ),
                      ),
-                      SizedBox(
+                      const SizedBox(
                         height: 60,
                       ),
                     ]

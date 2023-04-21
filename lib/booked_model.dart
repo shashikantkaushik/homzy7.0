@@ -1,20 +1,20 @@
-class ReqModel {
+class BookModel {
   String userName;
   String proName;
   String  reqPic;
   String proPic;
   String userPic;
   String acceptedAt;
-
+String upi;
   String createdAt;
   String proPhoneNumber;
   String userPhoneNumber;
   String userUid;
   String proUid;
   String desc;
-  String work;
 
-  ReqModel({
+
+  BookModel({
     required this.acceptedAt,
     required  this.proName,
     required this.proPhoneNumber,
@@ -27,15 +27,16 @@ class ReqModel {
     required this.createdAt,
     required this.userPhoneNumber,
     required this.userPic,
-    required this.work,
+    required this.upi,
+
   });
 
   // from map
-  factory ReqModel.fromMap(Map<String, dynamic> map) {
+  factory BookModel.fromMap(Map<String, dynamic> map) {
 
-    return ReqModel(
+    return BookModel(
 
-      work: map['work'] ?? '',
+      upi: map['upi'] ?? '',
 
       desc: map['desc'] ?? '',
       userName: map['userName'] ?? '',
@@ -58,7 +59,7 @@ class ReqModel {
     return {
 
 
-      "work": work,
+      "upi": upi,
       "desc": desc,
       "userName" : userName,
       "proName": proName,
