@@ -1,13 +1,13 @@
 class ProviderModel {
-  String order;
-  String income;
+  int order;
+  int income;
 
   String phoneNumber;
   String uid;
 
   ProviderModel({
-    required this.order,
-    required this.income,
+    required this.order ,
+    required this.income ,
     required this.phoneNumber,
     required this.uid,
   });

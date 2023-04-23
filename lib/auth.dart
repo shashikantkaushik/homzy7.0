@@ -45,9 +45,13 @@ class AuthProvider extends ChangeNotifier {
   BookModel? _bookModel;
   BookModel get bookModel => _bookModel!;
 
+  ProviderModel? _providerModel;
+  ProviderModel get providerModel => _providerModel!;
+
+
   String get uid => _uid!;
   UserModel? _userModel;
-  ProviderModel? _providerModel;
+
 
   UserModel get userModel => _userModel!;
   ReqModel? _reqModel;
@@ -299,20 +303,26 @@ class AuthProvider extends ChangeNotifier {
   void saveProDataToFirebase({
     required BuildContext context,
     required ProviderModel providerModel,
-    required Function onSuccess,
+
   }) async {
     _isLoading = true;
     notifyListeners();
     try {
-      reqModel.userPhoneNumber = _firebaseAuth.currentUser!.phoneNumber!;
-      reqModel.userUid = _firebaseAuth.currentUser!.phoneNumber!;
-      // uploading to database
+      // Increment the order variable by 1
+      providerModel.order += 1;
+      providerModel.income+=5;
+      providerModel.uid=
+      // Set the phone number and UID fields from the current user
+      providerModel.phoneNumber = _firebaseAuth.currentUser!.phoneNumber!;
+      providerModel.uid = _firebaseAuth.currentUser!.uid;
+
+      // Upload to the database
       await _firebaseFirestore
           .collection("provider")
-          .doc(_uid)
-          .set(reqModel.toMap())
+          .doc(providerModel.phoneNumber)
+          .set(providerModel.toMap())
           .then((value) {
-        onSuccess();
+
         _isLoading = false;
         notifyListeners();
       });
@@ -322,6 +332,7 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
 
   void saveReqDataToFirebase({
     required BuildContext context,
@@ -382,6 +393,24 @@ class AuthProvider extends ChangeNotifier {
     }
 
     return reqList;
+  }
+
+
+  Future getProviderData() async {
+    await _firebaseFirestore
+        .collection("provider")
+        .doc(_firebaseAuth.currentUser!.uid)
+        .get()
+        .then((DocumentSnapshot snapshot) {
+      _providerModel = ProviderModel(
+        income: snapshot['income'],
+        order: snapshot['order'],
+        uid: snapshot['uid'],
+
+        phoneNumber: snapshot['phoneNumber'],
+      );
+      _uid = providerModel.uid;
+    });
   }
 
 

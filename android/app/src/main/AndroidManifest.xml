@@ -1,9 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.shashi.homzypro">
+    package="com.shashi.homzypro"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
    <application
         android:label="homzypro"
+
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+       tools:replace="android:label">
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:homzy1/auth.dart';
 import 'package:homzy1/screens/WelcomeScreen.dart';
+import 'package:homzy1/screens/account_page.dart';
 import 'package:homzy1/screens/request_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:homzy1/widget/button.dart';
@@ -168,7 +169,7 @@ backgroundColor: Colors.transparent,
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) =>  const ServiceRequest(),
+            builder: (context) =>   SubSetting(),
           ),
         );
       },

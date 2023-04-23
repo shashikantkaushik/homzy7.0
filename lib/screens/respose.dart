@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:homzy1/auth.dart';
 import 'package:homzy1/req_model.dart';
 import 'package:homzy1/booked_model.dart';
+import 'package:homzy1/screens/homeScreen.dart';
 import 'package:homzy1/user_model.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 class RequestScreen extends StatefulWidget {
-   const RequestScreen({super.key, required int MyUID});
-  @override
-  State<RequestScreen> createState() => _RequestScreenState(
+  final int MyUID;
+  const RequestScreen({super.key, required this.MyUID});
 
-  );
+  @override
+  State<RequestScreen> createState() =>
+      _RequestScreenState(
+
+      );
 
 }
 
@@ -89,207 +93,168 @@ class _RequestScreenState extends State<RequestScreen> {
               final reqModel = ReqModel.fromMap(data);
               reqList.add(reqModel);
             }
+
             return ListView.builder(
-                itemCount: reqList.length,
+
+                itemCount: 1,
                 itemBuilder: (context, index) {
                   var len=reqList.length;
-                  var userName=reqList[index].userName;
-                  var userPhoneNumber=reqList[index].userPhoneNumber;
-                  var userUid=reqList[index].userUid;
-                  var work=reqList[index].work;
-                  var reqPic=reqList[index].reqPic;
-                  var address=reqList[index].address;
-                  var createdAt=reqList[index].createdAt;
-                  var pin=reqList[index].pin;
-                  var desc=reqList[index].desc;
-                  var userPic=reqList[index].userPic;
-                  return Container(
-                    width: double.infinity,
-                    height: 1000,
-                    color: Colors.grey[300],
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(16),
-                          alignment: Alignment.center,
-                          child: Text(
 
-                            'Pending Requests: $len',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            padding: const EdgeInsets.all(16),
+                  var userName = reqList[widget.MyUID].userName;
+
+                  var userPhoneNumber=reqList[widget.MyUID].userPhoneNumber;
+                  var userUid=reqList[widget.MyUID].userUid;
+                  var work=reqList[widget.MyUID].work;
+                  var reqPic=reqList[widget.MyUID].reqPic;
+                  var address=reqList[widget.MyUID].address;
+                  var createdAt=reqList[widget.MyUID].createdAt;
+                  var pin=reqList[widget.MyUID].pin;
+                  var desc=reqList[widget.MyUID].desc;
+                  var userPic=reqList[widget.MyUID].userPic;
+                  return SingleChildScrollView(
+                //    shrinkWrap:true,
+                  child:    Column(
+                        children: [
+                          Container(
                             width: double.infinity,
-                            color: Colors.white,
+                            height: 300,
                             child: Column(
                               children: [
                                 Expanded(
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius
-                                          .circular(10),
-                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(10),
                                     ),
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16,
-                                        vertical: 16),
                                     child: Column(
                                       children: [
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .spaceBetween,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Row(
                                               children: [
                                                 Column(
-                                                  children: [
+                                                  children:[
                                                     CircleAvatar(
                                                       backgroundImage: NetworkImage(
-                                                        reqList[index].userPic ?? 'https://example.com/default.jpg',
+                                                        '$userPic',
                                                       ),
                                                     ),
                                                   ],
                                                 ),
-                                                const SizedBox(width: 10),
+                                                SizedBox(width: 10),
                                                 Column(
-                                                  crossAxisAlignment: CrossAxisAlignment
-                                                      .start,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      userName,
-                                                      style: const TextStyle(
-                                                        fontWeight: FontWeight
-                                                            .bold,
-                                                        color: Colors
-                                                            .white,
+                                                      '$userName',
+                                                      style: TextStyle(
+                                                        fontSize: 25,
+                                                        fontWeight: FontWeight.bold,
+                                                        color: Colors.black,
                                                       ),
                                                     ),
-                                                    const SizedBox(
-                                                        height: 5),
+                                                    SizedBox(height: 5),
                                                     Text(
-                                                      work,
-                                                      style: const TextStyle(
-                                                        fontSize: 12,
-                                                        color: Colors
-                                                            .white,
+                                                      'Service Name',
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                        color: Colors.black,
                                                       ),
                                                     ),
                                                   ],
                                                 ),
                                               ],
                                             ),
-                                            const SizedBox(width: 10),
-                                            // Add some space between the two columns
+                                            SizedBox(width: 10), // Add some space between the two columns
                                             Column(
-                                              crossAxisAlignment: CrossAxisAlignment
-                                                  .end,
-                                              children: const [
+                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                              children: [
                                                 Text(
                                                   'ETA',
                                                   style: TextStyle(
-                                                    fontWeight: FontWeight
-                                                        .bold,
-                                                    color: Colors
-                                                        .white,
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
                                                   ),
                                                 ),
                                                 Text(
                                                   '12 min',
                                                   style: TextStyle(
-                                                    fontWeight: FontWeight
-                                                        .bold,
-                                                    color: Colors
-                                                        .white,
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
                                                   ),
                                                 ),
                                               ],
                                             ),
                                           ],
                                         ),
-                                        const SizedBox(
-                                          height: 30,
+                                        SizedBox(
+                                          height: 20,
                                         ),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .spaceEvenly,
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Row(
                                               children: [
                                                 Column(
-                                                  crossAxisAlignment: CrossAxisAlignment
-                                                      .start,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
-                                                    const Text(
+                                                    Text(
                                                       'Service',
                                                       style: TextStyle(
                                                         fontSize: 17,
                                                         // fontWeight: FontWeight.bold,
-                                                        color: Colors
-                                                            .white,
+                                                        color: Colors.black,
                                                       ),
                                                     ),
-                                                    const SizedBox(
-                                                        height: 5),
+                                                    SizedBox(height: 5),
                                                     Text(
-                                                      work ?? "upload work",
-                                                      style: const TextStyle(
+                                                      'Ac Repair',
+                                                      style: TextStyle(
                                                         fontSize: 19,
-                                                        color: Colors
-                                                            .white,
-                                                        fontWeight: FontWeight
-                                                            .bold,
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.bold,
                                                       ),
                                                     ),
                                                   ],
                                                 ),
                                               ],
                                             ),
-                                            const SizedBox(width: 10),
-                                            // Add some space between the two columns
+                                            SizedBox(width: 10), // Add some space between the two columns
                                             Column(
-                                              crossAxisAlignment: CrossAxisAlignment
-                                                  .start,
-                                              children: const [
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
                                                 Text(
                                                   'Price',
                                                   style: TextStyle(
-                                                    fontWeight: FontWeight
-                                                        .bold,
+                                                    fontWeight: FontWeight.bold,
                                                     fontSize: 17,
-                                                    color: Colors
-                                                        .white,
+                                                    color: Colors.black,
                                                   ),
                                                 ),
                                                 Text(
                                                   'Rs.500',
                                                   style: TextStyle(
-                                                    fontWeight: FontWeight
-                                                        .bold,
+                                                    fontWeight: FontWeight.bold,
                                                     fontSize: 19,
-                                                    color: Colors
-                                                        .white,
+                                                    color: Colors.black,
                                                   ),
                                                 ),
                                               ],
                                             ),
                                           ],
                                         ),
-                                        const SizedBox(
-                                          height: 20,
+                                        SizedBox(
+                                          height: 10,
                                         ),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .spaceEvenly,
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Expanded(
-                                              child: Container(
+                                              child: new Container(
                                                 //    margin: const EdgeInsets.only(left: 10.0, right: 15.0),
-                                                child: const Divider(
+                                                child: Divider(
                                                   color: Colors.black,
                                                   height: 15,
                                                 ),
@@ -297,470 +262,145 @@ class _RequestScreenState extends State<RequestScreen> {
                                             ),
                                           ],
                                         ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .spaceEvenly,
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Expanded(
-                                              child: SizedBox(
-                                                // color: Colors.red,
+                                              child: Container(
                                                 height: 100,
                                                 child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment
-                                                      .start,
+                                                  mainAxisAlignment: MainAxisAlignment.start,
                                                   children: [
-                                                    const Icon(Icons
-                                                        .location_on,
-                                                        color: Colors
-                                                            .white,
-                                                        size: 30),
-                                                    const SizedBox(
-                                                        width: 10),
+                                                    Icon(Icons.location_on, color: Colors.greenAccent, size: 30),
+                                                    SizedBox(width: 10),
                                                     Text(
-                                                      address,
-                                                      style: const TextStyle(
+                                                      '$address',
+                                                      style: TextStyle(
                                                         fontSize: 20,
-                                                        color: Colors
-                                                            .white,
+                                                        color: Colors.black,
                                                       ),
                                                     ),
                                                   ],
                                                 ),
                                               ),
                                             ),
-
-
-                                          ],
-
-                                        ),
-                                        Expanded(
-                                          child: SizedBox(
-                                            // color: Colors.red,
-                                            height: 100,
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment
-                                                  .start,
-                                              children: [
-                                                const Icon(Icons
-                                                    .location_on,
-                                                    color: Colors
-                                                        .white,
-                                                    size: 30),
-                                                const SizedBox(
-                                                    width: 10),
-                                                Text(
-                                                  userPhoneNumber,
-                                                  style: const TextStyle(
-                                                    fontSize: 20,
-                                                    color: Colors
-                                                        .white,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                          Container(
-                            child: Image.network(
-                              reqList[index].reqPic ?? 'https://example.com/default.jpg',
-                            ),
-                          ),
-
-                          Row(
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .spaceBetween,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Column(
-                                                  children: [
-                                                    Container(
-                                                      decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius
-                                                            .circular(
-                                                            10),
-                                                        color: Colors
-                                                            .grey,
-                                                      ),
-                                                      width: 150,
-                                                      height: 50,
-                                                      child: Center(
-                                                        child: ElevatedButton(
-                                                          onPressed: (){
-
-                                                          },
-                                                          child: const Text(
-                                                            'Decline',
-                                                            style: TextStyle(
-                                                              fontSize: 20,
-                                                              fontWeight: FontWeight
-                                                                  .bold,
-                                                              color: Colors
-                                                                  .white,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(width: 10),
-                                            // Add some space between the two columns
-                                            Column(
-                                              children: [
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius
-                                                        .circular(10),
-                                                    color: Colors
-                                                        .green,
-                                                  ),
-                                                  width: 150,
-                                                  height: 50,
-                                                  child: Center(
-                                                    child: TextButton(
-                                                      onPressed: (){
-                                                        print("call");
-                                                        storeData(userPic: userPic,userName: userName,userPhoneNumber: userPhoneNumber,userUid: userUid,createdAt: createdAt,desc: desc,reqPic: reqPic);
-                                                        print("end");
-                                                       // ap.move(reqList[index].userUid);
-                                                        print(reqList[index].userUid);
-                                                      },
-                                                      child: const Text(
-                                                        'Accept',
-                                                        style: TextStyle(
-                                                          fontSize: 20,
-                                                          fontWeight: FontWeight
-                                                              .bold,
-                                                          color: Colors
-                                                              .white,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
                                           ],
                                         ),
                                       ],
-                                    ), // Add padding to the row
+                                    ),
+                                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                                    margin: EdgeInsets.all(10),// Add padding to the row
                                   ),
 
                                 ),
-                                const SizedBox(height: 20),
-                                // Expanded(
-                                //   child: Container(
-                                //     decoration: BoxDecoration(
-                                //       borderRadius: BorderRadius
-                                //           .circular(10),
-                                //       color: Colors.blue,
-                                //     ),
-                                //     child: Column(
-                                //       children: [
-                                //         Row(
-                                //           mainAxisAlignment: MainAxisAlignment
-                                //               .spaceBetween,
-                                //           children: [
-                                //             Row(
-                                //               children: [
-                                //                 Column(
-                                //                   children: [
-                                //                     CircleAvatar(
-                                //                       backgroundImage: NetworkImage(
-                                //                         'https://picsum.photos/200',
-                                //                       ),
-                                //                     ),
-                                //                   ],
-                                //                 ),
-                                //                 SizedBox(width: 10),
-                                //                 Column(
-                                //                   crossAxisAlignment: CrossAxisAlignment
-                                //                       .start,
-                                //                   children: [
-                                //                     Text(
-                                //                       'John Doe',
-                                //                       style: TextStyle(
-                                //                         fontWeight: FontWeight
-                                //                             .bold,
-                                //                         color: Colors
-                                //                             .white,
-                                //                       ),
-                                //                     ),
-                                //                     SizedBox(
-                                //                         height: 5),
-                                //                     Text(
-                                //                       'Service Name',
-                                //                       style: TextStyle(
-                                //                         fontSize: 12,
-                                //                         color: Colors
-                                //                             .white,
-                                //                       ),
-                                //                     ),
-                                //                   ],
-                                //                 ),
-                                //               ],
-                                //             ),
-                                //             SizedBox(width: 10),
-                                //             // Add some space between the two columns
-                                //             Column(
-                                //               crossAxisAlignment: CrossAxisAlignment
-                                //                   .end,
-                                //               children: [
-                                //                 Text(
-                                //                   'ETA',
-                                //                   style: TextStyle(
-                                //                     fontWeight: FontWeight
-                                //                         .bold,
-                                //                     color: Colors
-                                //                         .white,
-                                //                   ),
-                                //                 ),
-                                //                 Text(
-                                //                   '12 min',
-                                //                   style: TextStyle(
-                                //                     fontWeight: FontWeight
-                                //                         .bold,
-                                //                     color: Colors
-                                //                         .white,
-                                //                   ),
-                                //                 ),
-                                //               ],
-                                //             ),
-                                //           ],
-                                //         ),
-                                //         SizedBox(
-                                //           height: 20,
-                                //         ),
-                                //         Row(
-                                //           mainAxisAlignment: MainAxisAlignment
-                                //               .spaceEvenly,
-                                //           children: [
-                                //             Row(
-                                //               children: [
-                                //                 Column(
-                                //                   crossAxisAlignment: CrossAxisAlignment
-                                //                       .start,
-                                //                   children: [
-                                //                     Text(
-                                //                       'Service',
-                                //                       style: TextStyle(
-                                //                         fontSize: 17,
-                                //                         // fontWeight: FontWeight.bold,
-                                //                         color: Colors
-                                //                             .white,
-                                //                       ),
-                                //                     ),
-                                //                     SizedBox(
-                                //                         height: 5),
-                                //                     Text(
-                                //                       'Ac Repair',
-                                //                       style: TextStyle(
-                                //                         fontSize: 19,
-                                //                         color: Colors
-                                //                             .white,
-                                //                         fontWeight: FontWeight
-                                //                             .bold,
-                                //                       ),
-                                //                     ),
-                                //                   ],
-                                //                 ),
-                                //               ],
-                                //             ),
-                                //             SizedBox(width: 10),
-                                //             // Add some space between the two columns
-                                //             Column(
-                                //               crossAxisAlignment: CrossAxisAlignment
-                                //                   .start,
-                                //               children: [
-                                //                 Text(
-                                //                   'Price',
-                                //                   style: TextStyle(
-                                //                     fontWeight: FontWeight
-                                //                         .bold,
-                                //                     fontSize: 17,
-                                //                     color: Colors
-                                //                         .white,
-                                //                   ),
-                                //                 ),
-                                //                 Text(
-                                //                   'Rs.500',
-                                //                   style: TextStyle(
-                                //                     fontWeight: FontWeight
-                                //                         .bold,
-                                //                     fontSize: 19,
-                                //                     color: Colors
-                                //                         .white,
-                                //                   ),
-                                //                 ),
-                                //               ],
-                                //             ),
-                                //           ],
-                                //         ),
-                                //         SizedBox(
-                                //           height: 20,
-                                //         ),
-                                //         Row(
-                                //           mainAxisAlignment: MainAxisAlignment
-                                //               .spaceEvenly,
-                                //           children: [
-                                //             Expanded(
-                                //               child: new Container(
-                                //                 //    margin: const EdgeInsets.only(left: 10.0, right: 15.0),
-                                //                 child: Divider(
-                                //                   color: Colors.black,
-                                //                   height: 15,
-                                //                 ),
-                                //               ),
-                                //             ),
-                                //           ],
-                                //         ),
-                                //         SizedBox(
-                                //           height: 10,
-                                //         ),
-                                //         Row(
-                                //           mainAxisAlignment: MainAxisAlignment
-                                //               .spaceEvenly,
-                                //           children: [
-                                //             Expanded(
-                                //               child: Container(
-                                //                 // color: Colors.red,
-                                //                 height: 100,
-                                //                 child: Row(
-                                //                   mainAxisAlignment: MainAxisAlignment
-                                //                       .start,
-                                //                   children: [
-                                //                     Icon(Icons
-                                //                         .location_on,
-                                //                         color: Colors
-                                //                             .white,
-                                //                         size: 30),
-                                //                     SizedBox(
-                                //                         width: 10),
-                                //                     Text(
-                                //                       'Location',
-                                //                       style: TextStyle(
-                                //                         fontSize: 20,
-                                //                         color: Colors
-                                //                             .white,
-                                //                       ),
-                                //                     ),
-                                //                   ],
-                                //                 ),
-                                //               ),
-                                //             ),
-                                //
-                                //           ],
-                                //         ),
-                                //         SizedBox(
-                                //           height: 20,
-                                //         ),
-                                //         Row(
-                                //           mainAxisAlignment: MainAxisAlignment
-                                //               .spaceBetween,
-                                //           children: [
-                                //             Row(
-                                //               children: [
-                                //                 Column(
-                                //                   children: [
-                                //                     Container(
-                                //                       decoration: BoxDecoration(
-                                //                         borderRadius: BorderRadius
-                                //                             .circular(
-                                //                             10),
-                                //                         color: Colors
-                                //                             .grey,
-                                //                       ),
-                                //                       width: 150,
-                                //                       height: 50,
-                                //                       child: Center(
-                                //                         child: Text(
-                                //                           'Decline',
-                                //                           style: TextStyle(
-                                //                             fontSize: 20,
-                                //                             fontWeight: FontWeight
-                                //                                 .bold,
-                                //                             color: Colors
-                                //                                 .white,
-                                //                           ),
-                                //                         ),
-                                //                       ),
-                                //                     )
-                                //                   ],
-                                //                 ),
-                                //               ],
-                                //             ),
-                                //             SizedBox(width: 10),
-                                //             // Add some space between the two columns
-                                //             Column(
-                                //               children: [
-                                //                 Container(
-                                //                   decoration: BoxDecoration(
-                                //                     borderRadius: BorderRadius
-                                //                         .circular(10),
-                                //                     color: Colors
-                                //                         .green,
-                                //                   ),
-                                //                   width: 150,
-                                //                   height: 50,
-                                //                   child: Center(
-                                //                     child: Text(
-                                //                       'Accept',
-                                //                       style: TextStyle(
-                                //                         fontSize: 20,
-                                //                         fontWeight: FontWeight
-                                //                             .bold,
-                                //                         color: Colors
-                                //                             .white,
-                                //                       ),
-                                //                     ),
-                                //                   ),
-                                //                 )
-                                //               ],
-                                //             ),
-                                //           ],
-                                //         ),
-                                //       ],
-                                //     ),
-                                //     padding: EdgeInsets.symmetric(
-                                //         horizontal: 16,
-                                //         vertical: 16), // Add padding to the row
-                                //   ),
-                                //
-                                // ),
                               ],
                             ),
                           ),
-                        ),
-                      ],
-                    ),
+                          // Divider(
+                          //   color: Colors.grey,
+                          //   thickness: 2.0,
+                          // ),
+                          Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(16.0), // add padding to the container
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,// align widgets to the left
+                              children: [ // add some spacing between widgets
+                                Text(
+                                  '$desc', // add the description
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 25,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(16.0),
+                            child: Text(
+                              'Slow or clogged drains occur when something blocks the drain partially or completely. In sinks and showers, hair is often the culprit, but other items, such as a shampoo lid or small toy, may enter the drain and block the pipe. In toilets, the problem often comes when something other than dissolvable waste enters the toilet and gets flushed. Those solid items cannot move through the pipe, so they stay put, making it difficult or impossible for water to flow past the blockage and down the pipes.',style: TextStyle(color: Colors.black),
+                              softWrap: true,
+                              overflow: TextOverflow.clip,
+                            ),
+                          ),
+                          Container(
+                            height: 300,
+                           padding: EdgeInsets.all(16),
+                            margin: EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              image: DecorationImage(
+                                image: NetworkImage('$reqPic'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    scrollDirection: Axis.vertical,
+                      // Image.asset(
+                      //   'assets/images.jpeg',
+                      //   height: 400,
+                      //   width: double.infinity,
+                      //   fit: BoxFit.contain,
+                      // ),
                   );
                 }
 
 
             );
           },
-        )
+        ),
+        persistentFooterButtons: [
+    Padding(
+    padding: EdgeInsets.symmetric(horizontal: 30),
+    child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+    ElevatedButton(
+    onPressed: () {
+    Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => HomeScreen()),
+    );
+    },
+    child: Text('Back', style: TextStyle(color: Colors.black),),
+    style: ElevatedButton.styleFrom(
+    minimumSize: Size(140, 50),
+    backgroundColor: Colors.grey,
+    ),
+    ),
+    ElevatedButton(
+    onPressed: () {
+    Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => HomeScreen()),
+    );
+    },
+    child: Text('Accept', style: TextStyle(color: Colors.black),),
+    style: ElevatedButton.styleFrom(
+    minimumSize: Size(140, 50),
+    backgroundColor: Colors.green,
+    ),
+    ),
+    ],
+    ),
+    ),
+    ],
     );
   }
 
   void storeData({
-  required userPic,
+    required userPic,
     required userUid,
     required userName,
     required userPhoneNumber,
     required createdAt,
     required reqPic,
     required desc
-}) async {
+  }) async {
     print("call1");
     final ap = Provider.of<AuthProvider>(context, listen: false);
     print("call11");
@@ -792,11 +432,3 @@ class _RequestScreenState extends State<RequestScreen> {
   }
 
 }
-
-
-
-
-
-
-
-

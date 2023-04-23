@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:homzy1/screens/homeScreen.dart';
 import 'package:homzy1/screens/respose.dart';
@@ -7,7 +8,8 @@ import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ServiceRequest extends StatefulWidget {
-  const ServiceRequest({super.key});
+  const ServiceRequest({Key? key}) : super(key: key);
+
 
   @override
   _ServiceRequestState createState() => _ServiceRequestState();
@@ -28,17 +30,20 @@ class _ServiceRequestState extends State<ServiceRequest> {
     final ap = Provider.of<AuthProvider>(context,listen: false);
     return Scaffold(
       appBar: AppBar(
-       leading: IconButton(
+        backgroundColor:Colors.white,
+        //Color(0xFF189AB4),
+        leading: IconButton(
           onPressed: (){
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const HomeScreen()),
             );
           },
-          icon: const Icon(Icons.arrow_back_ios_sharp),
+          icon: const Icon(Icons.arrow_back_ios_sharp,
+          color: Colors.black87,),
         ),
 
-        title: const Text('Service Requests'),
+        title: const Text('Service Requests',style: TextStyle(color: Colors.black87),),
 
       ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
@@ -59,23 +64,44 @@ class _ServiceRequestState extends State<ServiceRequest> {
             final reqModel = ReqModel.fromMap(data);
             reqList.add(reqModel);
           }
-
+print(reqList.length);
           return ListView.builder(
             itemCount: reqList.length,
             itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => RequestScreen(MyUID:index)),
-                  );
-                },
-                child: ListTile(
-                  title: Text(reqList[index].work),
-                  subtitle: Text(reqList[index].desc),
-                  trailing: const Icon(Icons.arrow_forward),
+              return Container(
+                child: ListView(
+                    shrinkWrap:true,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => RequestScreen(MyUID: index)),
+                        );
+                        // Navigate to detail screen for request 2
+                      },
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          radius: 30,
+                          backgroundImage: AssetImage('assets/images.jpeg'),
+                        ),
+                        title: Text('Plumber', style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+                        subtitle: Text('Ac repair' , style: TextStyle(color: Colors.black),),
+                        trailing: Icon(Icons.arrow_forward),
+                      ),
+                    ),
+                    Divider(
+                      thickness: 0.2,
+                      height: 2,
+                      indent: 25,
+                      endIndent: 25,
+                      color: Colors.grey,
+                    ),
+                    // Add more list items as needed
+                  ],
                 ),
               );
+
             },
           );
         },

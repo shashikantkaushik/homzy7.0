@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:homzy1/auth.dart';
-//import 'package:homzy1/screens/home_screen.dart';
+import 'dart:convert';
+import 'package:homzy1/screens/about.dart';
 import 'package:provider/provider.dart';
 import 'package:homzy1/screens/WelcomeScreen.dart';
-import 'package:homzy1/screens/book_Service.dart';
+import 'package:homzy1/screens/profile_screen.dart';
+import 'package:homzy1/screens/faq_screen.dart';
+import 'package:kommunicate_flutter/kommunicate_flutter.dart';
 //import 'package:kommunicate_flutter/kommunicate_flutter.dart';
 class SubSetting extends StatefulWidget {
-  const SubSetting({super.key});
-
   @override
   State<SubSetting> createState() => _SubSettingState();
 }
@@ -15,11 +17,11 @@ class SubSetting extends StatefulWidget {
 class _SubSettingState extends State<SubSetting> {
   @override
   Widget build(BuildContext context) {
-   final ap = Provider.of<AuthProvider>(context, listen: false);
+    final ap = Provider.of<AuthProvider>(context, listen: false);
     const kchatbot="24b188427eb21cddb27882c3ee1ffae54";
     final name=(ap.userModel.name);
     final email=(ap.userModel.email);
-    final bio=(ap.userModel.upi);
+
     final phone=(ap.userModel.phoneNumber);
     final pic=(ap.userModel.profilePic);
     final uid=(ap.userModel.uid);
@@ -27,302 +29,344 @@ class _SubSettingState extends State<SubSetting> {
     // final DatabaseReference databaseReference = FirebaseDatabase.instance.reference().child('messages');
     final t = (ap.userModel.name);
     return Scaffold(
-      body: Column(
-        children: [
-          // Circular, small image in the middle of the top screen
-          SafeArea(
-            child: Container(
-                child:
-                CircleAvatar(
-
-                  backgroundImage: NetworkImage(ap.userModel.profilePic ?? 'https:pfoile.com'),
-                  backgroundColor: const Color(0xFF189AB4),
-                  radius: 50,
-                )
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 20,
             ),
-          ),
-          const SizedBox(height: 50),
-          // Container 1 with payment icon and arrow
-          Container(
-            height: 60.0,
-            color: Colors.white,
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: const [
-                    Icon(
-                      Icons.edit,
-                      color: Colors.black,
-                      size: 32.0,
-                    ),
-                    SizedBox(width: 16.0),
-                    Text(
-                      "Profile Edit",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24.0,
-                      ),
-                    ),
-                  ],
-                ),
-                const Spacer(),
-                const Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.black,
-                  size: 24.0,
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 16.0),
-          Container(
-            height: 60.0,
-            color: Colors.white,
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: const [
-                    Icon(
-                      Icons.payment,
-                      color: Colors.black,
-                      size: 32.0,
-                    ),
-                    SizedBox(width: 16.0),
-                    Text(
-                      "Payment",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24.0,
-                      ),
-                    ),
-                  ],
-                ),
-                const Spacer(),
-                const Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.black,
-                  size: 24.0,
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 16.0),
-          Container(
-            height: 60.0,
-            color: Colors.white,
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: const [
-                    Icon(
-                      Icons.question_answer,
-                      color: Colors.black,
-                      size: 32.0,
-                    ),
-                    SizedBox(width: 16.0),
-                    Text(
-                      "FAQ",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24.0,
-                      ),
-                    ),
-                  ],
-                ),
-                const Spacer(),
-                const Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.black,
-                  size: 24.0,
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 16.0),
-          // Container 2
-          Container(
-            height: 60.0,
-            color: Colors.white,
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
+            // Circular, small image in the middle of the top screen
+            SafeArea(
+              child: Container(
+                padding: EdgeInsets.only(left: 20),
+                width: 400.0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Icon(
-                      Icons.help,
-                      color: Colors.black,
-                      size: 32.0,
-                    ),
-                    const SizedBox(width: 16.0),
-                    TextButton(
-                      onPressed: (){
-                        // dynamic conversationObject = {
-                        //   'appId': '$kchatbot',// The [APP_ID](https://dashboard.kommunicate.io/settings/install) obtained from kommunicate dashboard.
-                        // };
-                        //
-                        // KommunicateFlutterPlugin.buildConversation(conversationObject)
-                        //     .then((clientConversationId) {
-                        //
-                        //   print("Conversation builder success : " + clientConversationId.toString());
-                        // }).catchError((error) {
-                        //   print("Conversation builder error : " + error.toString());
-                        // });
-                      },
-                      child: const Text(
-                        "Help",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 24.0,
+                    Container(
+                      height: 100.0,
+                      width: 100.0,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Color(0xFF189AB4),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(ap.userModel.profilePic),
                         ),
                       ),
                     ),
-                  ],
-                ),
-                const Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.black,
-                  size: 24.0,
-                ),
-              ],
-            ),
-          ),
 
-          const SizedBox(height: 16.0),
-          // Container 3
-          // Container 4
-          // Container 4
-          Container(
-            height: 60.0,
-            color: Colors.white,
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: const [
-                    Icon(
-                      Icons.email,
-                      color: Colors.black,
-                      size: 32.0,
-                    ),
-                    SizedBox(width: 16.0),
-                    Text(
-                      "About us",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24.0,
-                      ),
+
+                    SizedBox(width: 20.0),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "$name",
+                          style: TextStyle(
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 5.0),
+                        Text(
+                          "$phone",
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                const Spacer(),
-                const Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.black,
-                  size: 24.0,
-                ),
-              ],
+
+              ),
+
             ),
-          ),
-          const SizedBox(height: 16.0),
-          // Container 3
-          // Container 4
-          Container(
-            height: 60.0,
-            color: Colors.white,
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: (){
-                    ap.userSignOut().then(
-                          (value) => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const WelcomeScreen(),
+            SizedBox(height: 30),
+            // Container 1 with payment icon and arrow
+            InkWell(
+              onTap: (){
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Profile()),
+                  );
+              },
+              child: Container(
+                height: 60.0,
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.account_circle,
+                          color: Colors.blueAccent,
+                          size: 50.0,
                         ),
-                      ),
-                    );
-                  },
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: (){
-                          ap.userSignOut().then(
-                                (value) => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const WelcomeScreen(),
-                              ),
-                            ),
-                          );
-                        },
-                        child: const Icon(
-                          Icons.logout,
-                          color: Colors.black,
-                          size: 32.0,
-                        ),
-                      ),
-                      const SizedBox(width: 16.0),
-                      GestureDetector(
-                        onTap: (){
-                          print("press");
-                          ap.userSignOut().then(
-                                (value) => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const WelcomeScreen(),
-                              ),
-                            ),
-                          );
-                        },
-                        child: const Text(
-                          "Log 12Out",
+                        SizedBox(width: 10.0),
+                        Text(
+                          "Profile",
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: 24.0,
+                            fontSize: 23.0,
                           ),
-
+                        ),
+                      ],
+                    ),
+                    //  Spacer(),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.black,
+                      size: 24.0,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 20.0),
+            Container(
+              height: 60.0,
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.payment,
+                        color: Colors.purpleAccent,
+                        size: 50.0,
+                      ),
+                      SizedBox(width: 10.0),
+                      Text(
+                        "Payment",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 23.0,
                         ),
                       ),
                     ],
                   ),
-                ),
-                const Spacer(),
-                GestureDetector(
-                  onTap: (){
-                    ap.userSignOut().then(
-                        (value) => Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const WelcomeScreen(),
-                      ),
-                          (Route<dynamic> route) => false,
-                    ),
-                  );
-
-                  },
-                  child: const Icon(
+                  // Spacer(),
+                  Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.black,
                     size: 24.0,
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 16.0),
-          // Container 5
-        ],
+            SizedBox(height: 20.0),
+            Container(
+              height: 60.0,
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.question_answer,
+                        color: Colors.deepOrange,
+                        size: 50.0,
+                      ),
+                      SizedBox(width: 10.0),
+                      TextButton(
+                        onPressed: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const WelcomeScreen(),
+                            ),
+
+                          );
+                        },
+                        child: TextButton(
+                          onPressed: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const FaqScreen(),
+                              ),
+
+                            );
+                          },
+                          child: Text(
+                            "FAQ",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 23.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  // Spacer(),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.black,
+                    size: 24.0,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20.0),
+            // Container 2
+            Container(
+              height: 60.0,
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.help,
+                        color: Colors.orangeAccent,
+                        size: 50.0,
+                      ),
+                      SizedBox(width: 10.0),
+                      TextButton(
+                        onPressed: (){
+                          dynamic conversationObject = {
+                            'appId': '271c5068d5c645603b47da5653855ac76',// The [APP_ID](https://dashboard.kommunicate.io/settings/install) obtained from kommunicate dashboard.
+                          };
+
+                          KommunicateFlutterPlugin.buildConversation(conversationObject)
+                              .then((clientConversationId) {
+
+                            print("Conversation builder success : " + clientConversationId.toString());
+                          }).catchError((error) {
+                            print("Conversation builder error : " + error.toString());
+                          });
+                        },
+                        child: Text(
+                          "Help",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 23.0,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.black,
+                    size: 24.0,
+                  ),
+                ],
+              ),
+            ),
+
+            SizedBox(height: 20.0),
+            // Container 3
+            // Container 4
+            // Container 4
+            InkWell(
+              onTap: (){
+                    Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AboutScreen(),
+                  ),
+
+                );
+              },
+              child: Container(
+                height: 60.0,
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.email_outlined,
+                          color: Colors.redAccent,
+                          size: 50.0,
+                        ),
+                        SizedBox(width: 10.0),
+                        Text(
+                          "About us",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 23.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                    //   Spacer(),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.black,
+                      size: 24.0,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 20.0),
+            // Container 3
+            // Container 4
+            InkWell(
+              onTap: (){
+                ap.userSignOut().then(
+                      (value) => Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const WelcomeScreen(),
+                    ),
+                        (Route<dynamic> route) => false,
+                  ),
+                );
+              },
+              child: Container(
+                height: 60.0,
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.logout,
+                          color: Colors.blueGrey,
+                          size: 50.0,
+                        ),
+                        SizedBox(width: 10.0),
+                        Text(
+                          "Log Out",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 23.0,
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    //  Spacer(),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.black,
+                      size: 24.0,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 16.0),
+            // Container 5
+          ],
+        ),
       ),
     );
   }
 }
+
+

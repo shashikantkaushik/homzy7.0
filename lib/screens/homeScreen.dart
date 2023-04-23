@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:homzy1/screens/request_screen.dart';
-import 'package:homzy1/screens/setting_page.dart';
+//import 'package:homzy1/screens/setting_page.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
+import 'package:homzy1/auth.dart';
+import 'package:carousel_pro/carousel_pro.dart';
 
+
+import 'package:homzy1/screens/account_page.dart';
+import 'package:provider/provider.dart';
+//import 'package:homzy1/screens/small_service_page.dart';
+import 'package:homzy1/screens/account_page.dart';
+
+import 'package:flutter/material.dart';
+import 'package:carousel_pro/carousel_pro.dart';
+import 'package:homzy1/screens/account_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -24,175 +37,203 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ap = Provider.of<AuthProvider>(context, listen: false);
+    final name=(ap.userModel.name);
+    final email=(ap.userModel.email);
+
+    final phone=(ap.userModel.phoneNumber);
+    final pic=(ap.userModel.profilePic);
+    final uid=(ap.userModel.uid);
+    final date=(ap.userModel.createdAt);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Service Provider'),
-      ),
+
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-        Container(
-        color: Colors.grey[200],
-          height: 100,
-          child: const Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                'Good Morning Partner',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                height: 100,
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Homzy',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        CircleAvatar(
+                          radius: 30,
+                          backgroundImage: NetworkImage('$pic'),
+                        ),
+                      ],
+                    ),
+
+                  ),
                 ),
               ),
-            ),
-          ),
-        ),
-          const SizedBox(
-            height: 80,
-          ),
+              SizedBox(
+                height: 30,
+              ),
+              Container(
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${DateTime.now().day} ${DateFormat('MMMM').format(DateTime.now())} ${DateTime.now().year}",
+                      style: TextStyle(
+                        fontSize: 15,
+                      ),
+                    ),
+                    SizedBox(height: 20.0),
+                    Text(
+                      "Hello , $name",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 60,
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 16,),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      SizedBox(width: 16.0),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.blueAccent,
+                        ),
+                        height: 300,
+                        width: 250,
+                        margin: EdgeInsets.only(right: 16.0),
+                        padding: EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CircleAvatar(
+                              radius: 30.0,
+                              child: Icon(Icons.money, size: 35.0, color: Colors.white),
+                              backgroundColor: Colors.green,
+                            ),
+                            SizedBox(height: 16.0),
+                            Text(
+                              'Rs.10,000',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 8.0),
+                            Text(
+                              'Total Earning',
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 16.0),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.greenAccent,
+                        ),
+                        height: 300,
+                        width: 250,
+                        padding: EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CircleAvatar(
+                              radius: 30.0,
+                              child: Icon(Icons.attach_money, size: 35.0, color: Colors.white),
+                              backgroundColor: Colors.blue,
+                            ),
+                            SizedBox(height: 16.0),
+                            Text(
+                              'Rs.25,000',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 8.0),
+                            Text(
+                              'Gross Earning',
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 16.0),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.blueAccent,
+                        ),
+                        height: 300,
+                        width: 250,
+                        padding: EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CircleAvatar(
+                              radius: 30.0,
+                              child: Icon(Icons.file_download_done_rounded, size: 35.0, color: Colors.white),
+                              backgroundColor: Colors.blue,
+                            ),
+                            SizedBox(height: 16.0),
+                            Text(
+                              '40',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 8.0),
+                            Text(
+                              'Order Received',
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
 
-          // Row(
-          //     children: [
-          //       Expanded(
-          //         child:Container(
-          //           padding: EdgeInsets.all(16.0),
-          //           child: Column(
-          //             crossAxisAlignment: CrossAxisAlignment.start,
-          //             children: [
-          //               CircleAvatar(
-          //                 radius: 30.0,
-          //                 child: Icon(Icons.attach_money, size: 35.0, color: Colors.white),
-          //                 backgroundColor: Colors.green,
-          //               ),
-          //               // SizedBox(height: 16.0),
-          //               // Text(
-          //               //   '60',
-          //               //   style: TextStyle(
-          //               //     color: Colors.green,
-          //               //     fontSize: 24.0,
-          //               //     fontWeight: FontWeight.bold,
-          //               //   ),
-          //               // ),
-          //               SizedBox(height: 40.0),
-          //               Text(
-          //                 'Pending Request',
-          //                 style: TextStyle(
-          //                   fontSize: 16.0,
-          //                   fontWeight: FontWeight.bold,
-          //                 ),
-          //               ),
-          //             ],
-          //           ),
-          //         ),
-          //       ),
-          //       Expanded(
-          //         child: Container(
-          //           padding: EdgeInsets.all(16.0),
-          //           child: Column(
-          //             crossAxisAlignment: CrossAxisAlignment.start,
-          //             children: [
-          //               CircleAvatar(
-          //                 radius: 30.0,
-          //                 child: Icon(Icons.attach_money, size: 35.0, color: Colors.white),
-          //                 backgroundColor: Colors.blue,
-          //               ),
-          //               SizedBox(height: 16.0),
-          //               Text(
-          //                 '40',
-          //                 style: TextStyle(
-          //                   color: Colors.blueAccent,
-          //                   fontSize: 24.0,
-          //                   fontWeight: FontWeight.bold,
-          //                 ),
-          //               ),
-          //               SizedBox(height: 8.0),
-          //               Text(
-          //                 'Order Reviced',
-          //                 style: TextStyle(
-          //                   fontSize: 16.0,
-          //                   fontWeight: FontWeight.bold,
-          //                 ),
-          //               ),
-          //             ],
-          //           ),
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-            const SizedBox(
-              height: 80,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child:Container(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        CircleAvatar(
-                          radius: 30.0,
-                          backgroundColor: Colors.green,
-                          child: Icon(Icons.attach_money, size: 35.0, color: Colors.white),
-                        ),
-                        // SizedBox(height: 16.0),
-                        // Text(
-                        //   '60',
-                        //   style: TextStyle(
-                        //     color: Colors.green,
-                        //     fontSize: 24.0,
-                        //     fontWeight: FontWeight.bold,
-                        //   ),
-                        // ),
-                        SizedBox(height: 40.0),
-                        Text(
-                          'Pending Request',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        CircleAvatar(
-                          radius: 30.0,
-                          backgroundColor: Colors.blue,
-                          child: Icon(Icons.attach_money, size: 35.0, color: Colors.white),
-                        ),
-                        SizedBox(height: 16.0),
-                        Text(
-                          '40',
-                          style: TextStyle(
-                            color: Colors.blueAccent,
-                            fontSize: 24.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 8.0),
-                        Text(
-                          'Order Reviced',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -215,19 +256,19 @@ class HomeScreen extends StatelessWidget {
             case 0:
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()),
+                MaterialPageRoute(builder: (context) => HomeScreen()),
               );
               break;
             case 1:
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const ServiceRequest()),
+                MaterialPageRoute(builder: (context) => ServiceRequest()),
               );
               break;
             case 2:
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const SubSetting()),
+                MaterialPageRoute(builder: (context) => SubSetting()),
               );
               break;
           }
